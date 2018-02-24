@@ -1,2 +1,2 @@
-import ops
-import plots
+import ops import *
+import plots import *
