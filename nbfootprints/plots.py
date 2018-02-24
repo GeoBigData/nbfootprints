@@ -1,4 +1,4 @@
-from . import ops.geom_to_array as geom_to_array
+from ops import geom_to_array
 import jinja2
 from gbdxtools import CatalogImage
 import pandas as pd

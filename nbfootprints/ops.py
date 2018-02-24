@@ -1,6 +1,6 @@
 from shapely import geometry
 from rasterio import features
-from . import plots.display_chip as display_chip
+from plots import display_chip
 import numpy as np
 from skimage import filters
 from ipywidgets import widgets, HBox
