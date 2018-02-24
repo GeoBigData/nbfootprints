@@ -1,5 +1,5 @@
-import ops import *
-import plots import *
+from ops import *
+from plots import *
 
 __all__ = ['ops',
            'plots']
