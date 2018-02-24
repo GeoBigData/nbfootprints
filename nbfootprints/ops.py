@@ -1,6 +1,6 @@
 from shapely import geometry
 from rasterio import features
-from .plots import display_chip
+import plots
 import numpy as np
 from skimage import filters
 from ipywidgets import widgets, HBox
@@ -146,14 +146,14 @@ def _catch_vote_and_advance(b, img, vote_question, buttons_widget, feature_list,
         # otherwise, advance to the next feature
     display.clear_output(wait=True)
     next_feature = feature_list[votes_tally]
-    display_chip(next_feature, img, geom_buffer_size, vote_question)
+    plots.display_chip(next_feature, img, geom_buffer_size, vote_question)
     display.display(buttons_widget)
 
 
 def initialize_voting(feature_list, img, buttons_widget, vote_question, geom_buffer_size=0.0003):
     display.clear_output(wait=True)
     feat = feature_list[0]
-    display_chip(feat, img, geom_buffer_size, vote_question)
+    plots.display_chip(feat, img, geom_buffer_size, vote_question)
     display.display(buttons_widget)
 
 

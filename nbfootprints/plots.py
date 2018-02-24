@@ -1,4 +1,4 @@
-from .ops import geom_to_array
+import ops
 import jinja2
 from gbdxtools import CatalogImage
 import pandas as pd
@@ -291,7 +291,7 @@ def plot_array(array, subplot_ijk, title="", font_size=18, cmap=None):
 
 
 def imprint_geom(chip, geom):
-    outlines = geom_to_array(geom, chip, all_touched=False, exterior_only=True)
+    outlines = ops.geom_to_array(geom, chip, all_touched=False, exterior_only=True)
     rgb_w_outlines = chip.rgb().copy()
 
     r = rgb_w_outlines[:, :, 0]
