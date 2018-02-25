@@ -70,7 +70,7 @@ TABLE_CSS = """<style>
 }
 
 table {
-  width: 100%;
+  width: 400px;
 }
 
 th, td {
@@ -78,6 +78,16 @@ th, td {
   padding-right: 10px;
 }
 
+.column1 {
+  width: 30%;
+  font-weight: 450;
+}
+
+.column2 {
+  padding-left: 16px;
+  width: 70%;
+  font-weight: 300;
+}
 
 .dataframe-head th {
   padding-top: 18px;
@@ -89,7 +99,6 @@ th, td {
   padding-bottom: 16px;
 	font-style: normal;
 	font-variant: normal;
-	font-weight: 300;
 }
 
 /*==================================================================
@@ -115,7 +124,7 @@ th, td {
 /*==================================================================
 [ Ver5 ]*/
 .dataframe {
-  margin-right: -30px;
+  margin-right: 30px;
 }
 
 .dataframe .dataframe-head {
@@ -131,7 +140,6 @@ th, td {
 
 .dataframe td {
   line-height: 1.4;
-
   background-color: #f7f7f7;
 
 }
@@ -194,6 +202,8 @@ th, td {
 .dataframe .ps__rail-y .ps__thumb-y::before {
   background-color: #cccccc;
 }
+
+
 </style>"""
 
 
@@ -206,7 +216,7 @@ def footprints_outline_styler(x):
 
 
 def footprints_color_styler(x):
-    return {'fillColor'  : x['properties']['hexcolor'],
+    return {'fillColor'  : rgb2hex(x['properties']['rgbcolor']),
             'color'      : COLORS['white'],
             'fillOpacity': 1,
             'weight'     : 0.5}
@@ -234,6 +244,13 @@ def footprints_label_styler(x):
             'fillOpacity': 0,
             'weight'     : 1}
 
+
+def footprints_combined_styler(x):
+    return {'fillColor'  : rgb2hex(x['properties']['rgbcolor']),
+            'color'      : COLORS['red'] if x['properties']['sig_overhanging_trees'].lower() == 'true' else COLORS[
+                'white'],
+            'fillOpacity': 1,
+            'weight'     : 1}
 
 def folium_map(geojson_to_overlay, layer_name, location, style_function=None, tiles='Stamen Terrain', zoom_start=19,
                show_layer_control=True, width='100%', height='75%', attr=None, map_zoom=18, max_zoom=20, tms=False,
@@ -324,10 +341,33 @@ def add_popups(features, m):
         df.columns = ['attribute', 'value']
         df.set_index('attribute', inplace=True)
         html = df.to_html(header=False, float_format='{:,.2f}'.format, border=False)
-        html = TABLE_CSS + html.replace('<tbody>', '<tbody class="dataframe-body">').replace('th', 'td')
+        html = TABLE_CSS + html.replace('<tbody>', '<tbody class="dataframe-body">').replace('<td>',
+                                                                                             '<td class="column2">').replace(
+            '<th>', '<td class="column1">').replace('</th>', '</td>')
         popup = folium.map.Popup(html=html, max_width=500)
+        popup._template = jinja2.Template(u"""
+            var {{this.get_name()}} = L.popup({maxWidth: '{{this.max_width}}'});
+
+            {% for name, element in this.html._children.items() %}
+                var {{name}} = $('{{element.render(**kwargs).replace('\\n',' ')}}')[0];
+                {{this.get_name()}}.setContent({{name}});
+
+            {% endfor %}
+
+            {{this._parent.get_name()}}.bindPopup({{this.get_name()}});
+
+            {{this._parent._parent.get_name()}}.on('overlayadd', function(){
+                {{this._parent.get_name()}}.bringToFront();
+            });
+
+            {% for name, element in this.script._children.items() %}
+                {{element.render()}}
+
+            {% endfor %}
+            """)
         marker = folium.features.PolygonMarker(locations, color='white', weight=0, fill_color='white', fill_opacity=0,
                                                popup=popup)
+
         marker.add_to(m)
 
     return m
