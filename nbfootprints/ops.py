@@ -1,6 +1,6 @@
 from shapely import geometry
 from rasterio import features
-import plots
+import .plots
 import numpy as np
 from skimage import filters
 from ipywidgets import widgets, HBox
