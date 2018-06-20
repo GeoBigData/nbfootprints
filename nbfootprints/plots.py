@@ -252,6 +252,7 @@ def footprints_combined_styler(x):
             'fillOpacity': 1,
             'weight'     : 1}
 
+
 def folium_map(geojson_to_overlay, layer_name, location, style_function=None, tiles='Stamen Terrain', zoom_start=19,
                show_layer_control=True, width='100%', height='75%', attr=None, map_zoom=18, max_zoom=20, tms=False,
                zoom_beyond_max=None):
