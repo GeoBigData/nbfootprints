@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from . import ops
 import jinja2
 from gbdxtools import CatalogImage
