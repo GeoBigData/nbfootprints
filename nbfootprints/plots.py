@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-import .ops
+from . import ops
 import jinja2
 from gbdxtools import CatalogImage
 import pandas as pd
