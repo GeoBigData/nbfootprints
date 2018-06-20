@@ -1,6 +1,6 @@
 from shapely import geometry
 from rasterio import features
-from nbfootprints import plots
+import nbfootprints.plots as plots
 import numpy as np
 from skimage import filters
 from ipywidgets import widgets, HBox

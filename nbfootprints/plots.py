@@ -1,4 +1,4 @@
-from nbfootprints import ops
+import nbfootprints.ops as ops
 import jinja2
 from gbdxtools import CatalogImage
 import pandas as pd
