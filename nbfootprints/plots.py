@@ -1,4 +1,4 @@
-import .ops
+from . import plots
 import jinja2
 from gbdxtools import CatalogImage
 import pandas as pd
