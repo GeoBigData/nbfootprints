@@ -1,6 +1,6 @@
 from __future__ import absolute_import
-from .ops import *
-from .plots import *
+from nbfootprints.ops import *
+from nbfootprints.plots import *
 
 __all__ = ['ops',
            'plots']
