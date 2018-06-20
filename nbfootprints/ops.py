@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+# from __future__ import absolute_import
 from shapely import geometry
 from rasterio import features
 from nbfootprints import plots
