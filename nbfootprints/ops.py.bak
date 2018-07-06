@@ -1,7 +1,5 @@
 from __future__ import absolute_import
-from __future__ import division
 # from __future__ import absolute_import
-from past.utils import old_div
 from shapely import geometry
 from rasterio import features
 from . import plots
@@ -117,7 +115,7 @@ def calc_overhanging_veg(geom, image, geom_buffer_size=0.0003, return_chips=Fals
     overhanging_trees = bldg_array * veg
 
     # calc pct overhnging
-    pct_overhanging_trees = old_div(float(overhanging_trees.sum()), bldg_array.sum())
+    pct_overhanging_trees = float(overhanging_trees.sum()) / bldg_array.sum()
 
     if return_chips is False:
         return pct_overhanging_trees
@@ -125,12 +123,12 @@ def calc_overhanging_veg(geom, image, geom_buffer_size=0.0003, return_chips=Fals
         overhanging_trees_with_bldg = overhanging_trees + bldg_array
         chip_rgb = chip.rgb()
         bldg_colored = np.zeros(chip_rgb.shape)
-        bldg_colored[:, :, 0][overhanging_trees_with_bldg == 1] = old_div(180, 255.)
-        bldg_colored[:, :, 1][overhanging_trees_with_bldg == 1] = old_div(180, 255.)
-        bldg_colored[:, :, 2][overhanging_trees_with_bldg == 1] = old_div(180, 255.)
-        bldg_colored[:, :, 0][overhanging_trees_with_bldg == 2] = old_div(0, 255.)
-        bldg_colored[:, :, 1][overhanging_trees_with_bldg == 2] = old_div(255, 255.)
-        bldg_colored[:, :, 2][overhanging_trees_with_bldg == 2] = old_div(23, 255.)
+        bldg_colored[:, :, 0][overhanging_trees_with_bldg == 1] = 180 / 255.
+        bldg_colored[:, :, 1][overhanging_trees_with_bldg == 1] = 180 / 255.
+        bldg_colored[:, :, 2][overhanging_trees_with_bldg == 1] = 180 / 255.
+        bldg_colored[:, :, 0][overhanging_trees_with_bldg == 2] = 0 / 255.
+        bldg_colored[:, :, 1][overhanging_trees_with_bldg == 2] = 255 / 255.
+        bldg_colored[:, :, 2][overhanging_trees_with_bldg == 2] = 23 / 255.
 
         return pct_overhanging_trees, chip_rgb, bldg_colored
 

@@ -1,7 +1,5 @@
 from __future__ import absolute_import
 # from __future__ import absolute_import
-from builtins import str
-from builtins import zip
 from . import ops
 import jinja2
 from gbdxtools import CatalogImage
@@ -235,7 +233,7 @@ def footprints_trees_styler(x):
 
 
 def footprints_label_styler(x):
-    if 'manual_label' not in list(x['properties'].keys()):
+    if 'manual_label' not in x['properties'].keys():
         color = COLORS['gray']
     else:
         if x['properties']['manual_label'] == 1:
@@ -340,9 +338,9 @@ def display_chip(feat, img, geom_buffer_size=0.0003, title=""):
 
 def add_popups(features, m):
     for feature in features:
-        lngs, lats = list(zip(*list(feature['geometry'].exterior.coords)))
-        locations = list(zip(lats, lngs))
-        df = pd.DataFrame(list(zip(*[(k, v) for k, v in feature['properties'].items()]))).transpose()
+        lngs, lats = zip(*list(feature['geometry'].exterior.coords))
+        locations = zip(lats, lngs)
+        df = pd.DataFrame(zip(*[(k, v) for k, v in feature['properties'].iteritems()])).transpose()
         df.columns = ['attribute', 'value']
         df.set_index('attribute', inplace=True)
         html = df.to_html(header=False, float_format='{:,.2f}'.format, border=False)
@@ -398,7 +396,7 @@ def get_idaho_tms_ids(image):
 def get_idaho_tms_url(source_catid_or_image, gbdx):
     if type(source_catid_or_image) == str:
         image = CatalogImage(source_catid_or_image)
-    elif '_ipe_op' in list(source_catid_or_image.__dict__.keys()):
+    elif '_ipe_op' in source_catid_or_image.__dict__.keys():
         image = source_catid_or_image
     else:
         err = "Invalid type for source_catid_or_image. Must be either a Catalog ID (string) or CatalogImage object"
