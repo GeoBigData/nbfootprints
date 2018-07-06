@@ -21,10 +21,12 @@ def to_geojson(l):
                       for d in l],
          'type': u'FeatureCollection'}
 
-    gj = json.dumps(g)
+    gj = json.dumps(g, default=np_serializer)
 
     return gj
 
+def np_serializer(i):
+    return np.asscalar(i)
 
 def from_geojson(source):
     if source.startswith('http'):
