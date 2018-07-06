@@ -26,7 +26,9 @@ def to_geojson(l):
     return gj
 
 def np_serializer(i):
-    return np.asscalar(i)
+    if type(i).__module__ == np.__name__:
+        return np.asscalar(i)
+    raise TypeError(repr(i) + " is not JSON serializable")
 
 def from_geojson(source):
     if source.startswith('http'):
