@@ -22,12 +22,12 @@ def to_geojson(l):
                       for d in l],
          'type': u'FeatureCollection'}
 
-     if sys.version_info[0] == 3:
+    if sys.version_info[0] == 3:
         serializer = np_serializer
     else:
         serializer = None
 
-    gj = json.dumps(g, default=np_serializer)
+    gj = json.dumps(g, default=serializer)
 
     return gj
 
