@@ -12,7 +12,7 @@ from IPython import display
 import os
 import json
 import requests
-
+import sys
 
 # FUNCTIONS
 def to_geojson(l):
@@ -21,7 +21,12 @@ def to_geojson(l):
                       for d in l],
          'type': u'FeatureCollection'}
 
-    gj = json.dumps(g, default=np_serializer)
+    if sys.version_info[0] == 3:
+        serializer = np_serializer
+    else:
+        serializer = None
+
+    gj = json.dumps(g, default=serializer)
 
     return gj
 
