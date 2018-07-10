@@ -14,7 +14,7 @@ import sys
 if sys.version_info[0] == 3:
     from . import plots
 else:
-    from . import plots
+    from nbfootprints import plots
 
 # FUNCTIONS
 def to_geojson(l):
