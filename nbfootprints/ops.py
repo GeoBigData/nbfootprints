@@ -21,14 +21,11 @@ def to_geojson(l):
          'features': [{'geometry': d['geometry'].__geo_interface__, 'properties': d['properties'], 'type': 'Feature'}
                       for d in l],
          'type': u'FeatureCollection'}
-
-     if sys.version_info[0] == 3:
-        serializer = np_serializer
+    if sys.version_info[0] == 3:
+         serializer = np_serializer
     else:
         serializer = None
-
     gj = json.dumps(g, default=np_serializer)
-
     return gj
 
 def np_serializer(i):
