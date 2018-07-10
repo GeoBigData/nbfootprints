@@ -1,10 +1,9 @@
-from __future__ import absolute_import
-from __future__ import division
 # from __future__ import absolute_import
+from __future__ import division
 from past.utils import old_div
 from shapely import geometry
 from rasterio import features
-from . import plots
+import plots
 import numpy as np
 from skimage import filters
 from ipywidgets import widgets, HBox

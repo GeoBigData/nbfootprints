@@ -1,8 +1,7 @@
-from __future__ import absolute_import
 # from __future__ import absolute_import
 from builtins import str
 from builtins import zip
-from . import ops
+import ops
 import jinja2
 from gbdxtools import CatalogImage
 import pandas as pd
