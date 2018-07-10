@@ -1,4 +1,4 @@
-# from __future__ import absolute_import
+from __future__ import absolute_import
 from __future__ import division
 from past.utils import old_div
 from shapely import geometry
@@ -12,10 +12,9 @@ import json
 import requests
 import sys
 if sys.version_info[0] == 3:
-    from __future__ import absolute_import
     from . import plots
 else:
-    import plots
+    from nbfootprints import plots
 
 # FUNCTIONS
 def to_geojson(l):

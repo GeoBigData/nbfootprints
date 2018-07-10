@@ -1,4 +1,4 @@
-# from __future__ import absolute_import
+from __future__ import absolute_import
 from builtins import str
 from builtins import zip
 import ops
@@ -9,10 +9,9 @@ import folium
 import matplotlib.pyplot as plt
 import json
 if sys.version_info[0] == 3:
-    from __future__ import absolute_import
     from . import ops
 else:
-    import ops
+    from nbfootprints import ops
 
 # CONSTANTS
 FOOTPRINTS_SAMPLE_SMALL = 'https://s3.amazonaws.com/gbdx-training/ecopia_sample/ecopia_footprints_sample_small.geojson'
