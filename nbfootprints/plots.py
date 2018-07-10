@@ -11,7 +11,7 @@ import sys
 if sys.version_info[0] == 3:
     from . import ops
 else:
-    from nbfootprints import ops
+    import ops
 
 # CONSTANTS
 FOOTPRINTS_SAMPLE_SMALL = 'https://s3.amazonaws.com/gbdx-training/ecopia_sample/ecopia_footprints_sample_small.geojson'
