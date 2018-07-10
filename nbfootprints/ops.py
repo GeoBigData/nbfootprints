@@ -3,7 +3,6 @@ from __future__ import division
 from past.utils import old_div
 from shapely import geometry
 from rasterio import features
-import plots
 import numpy as np
 from skimage import filters
 from ipywidgets import widgets, HBox
@@ -12,7 +11,11 @@ import os
 import json
 import requests
 import sys
-
+if sys.version_info[0] == 3:
+    from __future__ import absolute_import
+    from . import plots
+else:
+    import plots
 
 # FUNCTIONS
 def to_geojson(l):
