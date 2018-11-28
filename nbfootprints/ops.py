@@ -89,13 +89,13 @@ def get_median_rgb(geom, image, geom_buffer_size=0.0003, return_chips=False):
     medians = np.ma.median(pixels, axis=0)
     dist = np.linalg.norm(pixels - medians, axis=1)
     psuedo_medoid = pixels[np.argmin(dist), :]
-    rgb_vals = list(np.round(pixels[np.argmin(dist), :] * 255., 0).astype('int'))
+    rgb_vals = list(np.round(psuedo_medoid, 0).astype('int'))
 
     if return_chips is False:
         return rgb_vals
     else:
         # create the masked color image
-        bldg_colored = np.zeros(rgb.shape)
+        bldg_colored = np.zeros(rgb.shape, rgb.dtype)
         bldg_colored[:, :, 0] = psuedo_medoid[0]
         bldg_colored[:, :, 1] = psuedo_medoid[1]
         bldg_colored[:, :, 2] = psuedo_medoid[2]
